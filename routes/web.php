@@ -15,12 +15,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/key', function () {
-	return str_random(32);
-});
-
-$router->get('/first', function () {
-	return 'Saulia Karina';
-});
-
-$router->post('/register', 'UserController@register');
+$router->post('/login', 'AuthController@login');
+$router->post('/register', 'AuthController@register');
+$router->get('/user', 'UserController@userHasLogin');
