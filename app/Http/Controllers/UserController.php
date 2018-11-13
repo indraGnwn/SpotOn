@@ -18,11 +18,8 @@ class UserController extends Controller
 	{	
 		return response()->json([
 			'success' => true,
-			'message' => 'Login Success!',
-			'data' => [
-				'user' => $user,
-				'api_token' => $api_token
-			]
+			'message' => 'Authorized',
+			'data' => ''
 		]);
 	}
 }
