@@ -18,3 +18,11 @@ $router->get('/', function () use ($router) {
 $router->post('/login', 'AuthController@login');
 $router->post('/register', 'AuthController@register');
 $router->get('/user', 'UserController@userHasLogin');
+
+$router->post('/kategori', 'KategoriController@store');
+$router->get('/kategori', 'KategoriController@index');
+$router->delete('/kategori/{id}', 'KategoriController@delete');
+$router->put('/kategori/{id}', 'KategoriController@update'); //update blm bisa
+$router->get('/kategori/{id}', 'KategoriController@show');
+
+
