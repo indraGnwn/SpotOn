@@ -13,7 +13,7 @@ class CreateProdukTable extends Migration
      */
     public function up()
     {
-        Schema::create('produk', function (Blueprint $table) {
+        Schema::create('produks', function (Blueprint $table) {
             $table->increments('id');
               $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('CASCADE');
@@ -35,6 +35,6 @@ class CreateProdukTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produk');
+        Schema::dropIfExists('produks');
     }
 }
