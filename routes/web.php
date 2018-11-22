@@ -22,13 +22,13 @@ $router->get('/user', 'UserController@userHasLogin');
 $router->post('/kategori', 'KategoriController@store');
 $router->get('/kategori', 'KategoriController@index');
 $router->delete('/kategori/{id}', 'KategoriController@delete');
-$router->put('/kategori/{id}', 'KategoriController@update'); //update blm bisa
+$router->post('/kategori/update/{id}', 'KategoriController@update');
 $router->get('/kategori/{id}', 'KategoriController@show');
 
 $router->post('/produk', 'ProdukController@store');
 $router->get('/produk', 'ProdukController@index');
 $router->delete('/produk/{id}', 'ProdukController@delete');
-$router->put('/produk/{id}', 'ProdukController@update'); //update blm bisa
+$router->post('/produk/update/{id}', 'ProdukController@update');
 $router->get('/produk/{id}', 'ProdukController@show');
 
 

@@ -38,15 +38,20 @@ class KategoriController extends Controller
         ]);
     }
 
-   //not yet
-    public function update(Request $request, $id)
+    public function update(Request $req, $id) 
     {
-        $data_kategori = Kategori::find($id);
-        $data_kategori->update($request->all());
- 
-        return response()->json([
-            'message' => 'Successfull update category'
-        ]);
+        $data = Kategori::find($id);
+        $data->nama_kategori = $req->input("nama_kategori");
+        if ($data->save()) {
+            $res['success'] = true;
+            $res['result'] = 'Successfull update Kategori';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['result'] = 'Nama Kategori harus diisi';
+            return response($res);
+        }
+       
     }
 
 }
