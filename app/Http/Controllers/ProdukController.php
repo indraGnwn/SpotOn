@@ -58,6 +58,7 @@ class ProdukController extends Controller
             return response($res);
         }
        
+
     }
 
 }

@@ -51,8 +51,8 @@ class KategoriController extends Controller
             $res['result'] = 'Nama Kategori harus diisi';
             return response($res);
         }
-       
     }
+       
 
 }
 
