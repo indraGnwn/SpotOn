@@ -38,15 +38,27 @@ class ProdukController extends Controller
         ]);
     }
 
-   //not yet
-    public function update(Request $request, $id)
+   public function update(Request $req, $id) 
     {
-        $data_produk = Produk::find($id);
-        $data_produk->update($request->all());
- 
-        return response()->json([
-            'message' => 'Successfull update product'
-        ]);
+        $data = Produk::find($id);
+        $data->id_user = $req->input("id_user");
+        $data->nama_produk = $req->input("nama_produk");
+        $data->id_kategori = $req->input("id_kategori");
+        $data->lokasi = $req->input("lokasi");
+        $data->harga = $req->input("harga");
+        $data->deskripsi = $req->input("deskripsi");
+        $data->foto = $req->input("foto");
+        if ($data->save()) {
+            $res['success'] = true;
+            $res['result'] = 'Successfull update Produk';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['result'] = 'Update Failed';
+            return response($res);
+        }
+       
+
     }
 
 }
