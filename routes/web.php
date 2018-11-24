@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,16 +20,21 @@ $router->post('/login', 'AuthController@login');
 $router->post('/register', 'AuthController@register');
 $router->get('/user', 'UserController@userHasLogin');
 
-$router->post('/kategori', 'KategoriController@store');
-$router->get('/kategori', 'KategoriController@index');
-$router->delete('/kategori/{id}', 'KategoriController@delete');
-$router->post('/kategori/update/{id}', 'KategoriController@update');
-$router->get('/kategori/{id}', 'KategoriController@show');
+$router->post('/kategori', 'KategoriController@store'); //nambah kategori
+$router->get('/kategori', 'KategoriController@index'); //menampilkan semua kategori
+$router->delete('/kategori/{id}', 'KategoriController@delete'); 
+$router->post('/kategori/update/{id}', 'KategoriController@update'); //edit kategori
+$router->get('/kategori/{id}', 'KategoriController@show'); //menampilkan kategori berdasarkan id kategori
 
-$router->post('/produk', 'ProdukController@store');
-$router->get('/produk', 'ProdukController@index');
-$router->delete('/produk/{id}', 'ProdukController@delete');
-$router->post('/produk/update/{id}', 'ProdukController@update');
-$router->get('/produk/{id}', 'ProdukController@show');
+$router->post('produk', [
+    'middleware' => 'auth',
+    'uses' => 'ProdukController@store'
+]); //menambah produk
+$router->get('/produk', 'ProdukController@index'); //menampilkan semua produk
+$router->delete('/produk/{id}', 'ProdukController@delete'); 
+$router->post('/produk/update/{id}', 'ProdukController@update'); //edit produk
+$router->get('/produk/{id}', 'ProdukController@show'); //menampilkan produk berdasarkan id produk
+
+//$router->get('/user_produk', 'UserController@produk_saya'); 
 
 

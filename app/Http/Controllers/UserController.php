@@ -22,6 +22,14 @@ class UserController extends Controller
 			'data' => ''
 		]);
 	}
+
+	/*public function produk_saya()
+	{
+		$produk_saya = Auth::user()->produk();
+		return response()->json([
+			'data' => $produk_saya
+		]);
+	}*/
 }
 
  ?>
