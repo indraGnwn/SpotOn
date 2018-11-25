@@ -33,14 +33,11 @@ class AuthController extends Controller
 					'api_token' => $api_token
 				]
 			]);
+
 		}else{
 			return response()->json([
 				'success' => false,
-				'message' => 'Login Fail!',
-				'data' => [
-					'user' => $user,
-					'api_token' => $api_token
-				]
+				'message' => 'Login Fail!'
 			]);
 		}
 	}
@@ -72,7 +69,6 @@ class AuthController extends Controller
         }else{
             $res['success'] = false;
             $res['message'] = 'Failed to register!';
-            $res['data'] = $register;
             return response($res);
         }
 	}

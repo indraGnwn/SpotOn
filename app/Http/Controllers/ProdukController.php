@@ -23,10 +23,31 @@ class ProdukController extends Controller
 
 	public function store(Request $request)
     {
-        Produk::create($request->all());
-        return response()->json([
-           'message' => 'Successfull create new product'
-        ]);
+        $id_user = $request->input("id_user");
+        $nama_produk = $request->input("nama_produk");
+        $id_kategori = $request->input("id_kategori");
+        $lokasi = $request->input("lokasi");
+        $harga = $request->input("harga");
+        $deskripsi = $request->input("deskripsi");
+        $foto = $request->input("foto");
+		$buat = Produk::create([
+			'id_user' => $id_user,
+			'nama_produk' => $nama_produk,
+			'id_kategori' => $id_kategori,
+			'lokasi' => $lokasi,
+			'harga' => $harga,
+			'deskripsi' => $deskripsi,
+			'foto' => $foto
+		]);
+		if($buat){
+			return response()->json([
+			   'message' => 'Successfull create new product'
+			]);	
+		}else{
+			return response()->json([
+			   'message' => 'Failed create new product'
+			]);
+		}
     }
 
      public function delete($id)
@@ -50,11 +71,11 @@ class ProdukController extends Controller
         $data->foto = $req->input("foto");
         if ($data->save()) {
             $res['success'] = true;
-            $res['result'] = 'Successfull update Produk';
+            $res['message'] = 'Successfull update Produk';
             return response($res);
         } else {
             $res['success'] = false;
-            $res['result'] = 'Update Failed';
+            $res['message'] = 'Update Failed';
             return response($res);
         }
        
