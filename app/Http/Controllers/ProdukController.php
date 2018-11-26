@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller 
 {
+   public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['store']]);
+    }
 	
 
 	public function index()
@@ -37,6 +41,7 @@ class ProdukController extends Controller
     //create produk dengan user id auth
     public function store(Request $req)
     {
+
         $data = Produk::create([
                 'id_user' => Auth::user()->id,
                 'nama_produk' => $req->nama_produk,
@@ -46,12 +51,21 @@ class ProdukController extends Controller
                 'deskripsi' => $req->deskripsi,
                 'foto' => $req->foto
             ]);
+      
+		if($data){
+			return response()->json([
+			   'success' => true,
+         'message' => 'Successfull create new product',
+         'data' => $data
+			]);	
+		}else{
+			return response()->json([
+        'success' => true,
+        'message' => 'Failed create new product'
+        'data' => $data 
+        ]);
+		  }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfull create new product',
-            'data' => $data
-        ],201);
     }
 
      public function delete($id)
@@ -84,9 +98,6 @@ class ProdukController extends Controller
             'message' => 'Failed',
             'data' => $data
          ],201);
-        }
-       
-
     }
 
 }
