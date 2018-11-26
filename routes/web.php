@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,6 +20,7 @@ $router->post('/login', 'AuthController@login');
 $router->post('/register', 'AuthController@register');
 $router->get('/user', 'UserController@userHasLogin');
 
+
 $router->post('/kategori/add', 'KategoriController@store');
 $router->get('/kategori', 'KategoriController@index');
 $router->delete('/kategori/delete/{id}', 'KategoriController@delete');
@@ -28,6 +30,5 @@ $router->get('/kategori/{id}', 'KategoriController@show');
 $router->post('/produk/add', 'ProdukController@store');
 $router->delete('/produk/delete/{id}', 'ProdukController@delete');
 $router->post('/produk/update/{id}', 'ProdukController@update');
-
 $router->get('/produk/{id}', 'ProdukController@show');
 $router->get('/produk', 'ProdukController@index');

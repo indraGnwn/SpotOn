@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller 
 {
+   public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['store']]);
+    }
 	
 
 	public function index()
@@ -18,42 +23,54 @@ class ProdukController extends Controller
 	 public function show($id)
     {
         $data_produk = Produk::find($id);
-        return response()->json($data_produk);
+        if ($data_produk) {
+            return response()->json([
+                'success' => true,
+                'massage' => 'Successfull',
+                'data' => $data_produk
+            ],201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'massage' => 'Failed',
+                'data' => $data_produk
+            ],400);
+        }
     }
 
-	public function store(Request $request)
+    //create produk dengan user id auth
+    public function store(Request $req)
     {
-        $id_user = $request->input("id_user");
-        $nama_produk = $request->input("nama_produk");
-        $id_kategori = $request->input("id_kategori");
-        $lokasi = $request->input("lokasi");
-        $harga = $request->input("harga");
-        $deskripsi = $request->input("deskripsi");
-        $foto = $request->input("foto");
-		$buat = Produk::create([
-			'id_user' => $id_user,
-			'nama_produk' => $nama_produk,
-			'id_kategori' => $id_kategori,
-			'lokasi' => $lokasi,
-			'harga' => $harga,
-			'deskripsi' => $deskripsi,
-			'foto' => $foto
-		]);
-		if($buat){
+
+        $data = Produk::create([
+                'id_user' => Auth::user()->id,
+                'nama_produk' => $req->nama_produk,
+                'id_kategori' => $req->id_kategori,
+                'lokasi' => $req->lokasi,
+                'harga' => $req->harga,
+                'deskripsi' => $req->deskripsi,
+                'foto' => $req->foto
+            ]);
+      
+		if($data){
 			return response()->json([
-			   'message' => 'Successfull create new product'
+			   'success' => true,
+         'message' => 'Successfull create new product',
+         'data' => $data
 			]);	
 		}else{
 			return response()->json([
-			   'message' => 'Failed create new product'
-			]);
-		}
+        'success' => true,
+        'message' => 'Failed create new product'
+        'data' => $data 
+        ]);
+		  }
+
     }
 
      public function delete($id)
     {
         Produk::destroy($id);
- 
         return response()->json([
             'message' => 'Successfull delete product'
         ]);
@@ -70,16 +87,17 @@ class ProdukController extends Controller
         $data->deskripsi = $req->input("deskripsi");
         $data->foto = $req->input("foto");
         if ($data->save()) {
-            $res['success'] = true;
-            $res['message'] = 'Successfull update Produk';
-            return response($res);
+            return response()->json([
+            'success' => true,
+            'message' => 'Successfull',
+            'data' => $data
+        ],201);
         } else {
-            $res['success'] = false;
-            $res['message'] = 'Update Failed';
-            return response($res);
-        }
-       
-
+            return response()->json([
+            'success' => false,
+            'message' => 'Failed',
+            'data' => $data
+         ],201);
     }
 
 }
