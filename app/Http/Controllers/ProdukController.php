@@ -17,7 +17,11 @@ class ProdukController extends Controller
 	public function index()
 	{
 		$data_produk = Produk::all();
-		return response()->json($data_produk);
+		return response()->json([
+            'success' => true,
+            'massage' => 'Successfull',
+            'data' => $data_produk
+        ],201);
 	}
 
 	 public function show($id)
@@ -54,14 +58,14 @@ class ProdukController extends Controller
       
 		if($data){
 			return response()->json([
-			   'success' => true,
-         'message' => 'Successfull create new product',
-         'data' => $data
+		    'success' => true,
+            'message' => 'Successfull create new product',
+            'data' => $data
 			]);	
 		}else{
 			return response()->json([
         'success' => true,
-        'message' => 'Failed create new product'
+        'message' => 'Failed create new product',
         'data' => $data 
         ]);
 		  }
@@ -98,8 +102,8 @@ class ProdukController extends Controller
             'message' => 'Failed',
             'data' => $data
          ],201);
+       }
+
     }
-
 }
-
- ?>
+?>
