@@ -30,7 +30,6 @@ class AuthController extends Controller
 				'message' => 'Login Success!',
 				'data' => [
 					'user' => $user,
-					'api_token' => $api_token
 				]
 			]);
 
